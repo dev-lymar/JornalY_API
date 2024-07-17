@@ -16,6 +16,16 @@ class Group(models.Model):
         return self.title
 
 
+class Tag(models.Model):
+    """
+    A class for creating tags.
+    """
+    name = models.CharField(max_length=35)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     """
     A class for creating posts.
@@ -27,6 +37,7 @@ class Post(models.Model):
         Group, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Group'
     )
     image = models.ImageField(verbose_name='Image', upload_to='posts/%Y/%m/%d', blank=True)
+    tag = models.ManyToManyField(Tag, through='TagPost')
 
     class Meta:
         ordering = ('-pub_date',)
@@ -35,6 +46,14 @@ class Post(models.Model):
 
     def __str__(self):
         return self.text[:15] + '...' if len(self.text) > 15 else self.text
+
+
+class TagPost(models.Model):
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.tag} {self.post}'
 
 
 class Comment(models.Model):
