@@ -31,7 +31,7 @@ class Post(models.Model):
     A class for creating posts.
     """
     text = models.TextField(verbose_name='Post text')
-    pub_date = models.DateField(verbose_name='Date of publication', auto_now_add=True, db_index=True)
+    pub_date = models.DateTimeField(verbose_name='Date of publication', auto_now_add=True, db_index=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_posts', verbose_name='Author')
     group = models.ForeignKey(
         Group, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Group'
