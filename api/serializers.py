@@ -3,12 +3,18 @@ from posts.models import Post, Group, Tag, TagPost
 
 
 class TagSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Tag model.
+    """
     class Meta:
         model = Tag
         fields = ('name', )
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Post model.
+    """
     group = serializers.SlugRelatedField(
         queryset=Group.objects.all(),
         slug_field='slug',
@@ -21,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('text', 'author', 'image', 'publication_date', 'group', 'tag', 'character_quantity')
+        read_only_fields = ('author',)
 
     def create(self, validated_data):
         if 'tag' not in validated_data:

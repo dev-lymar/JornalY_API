@@ -8,4 +8,5 @@ router.register('posts', PostViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
+    path('api/v1/auth/', include('djoser.urls.jwt')),
 ]
