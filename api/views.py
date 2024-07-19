@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import filters
 
 from posts.models import Post
 from .serializers import PostSerializer
@@ -14,6 +15,8 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrReadOnly,)
     throttle_classes = (EarlyMorningThrottle,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('$text',)
 
     def perform_create(self, serializer):
         """
