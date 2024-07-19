@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from posts.models import Post
 from .serializers import PostSerializer
 from .permissions import IsAuthorOrReadOnly
+from .throttling import EarlyMorningThrottle
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -12,6 +13,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrReadOnly,)
+    throttle_classes = (EarlyMorningThrottle,)
 
     def perform_create(self, serializer):
         """
