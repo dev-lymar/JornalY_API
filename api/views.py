@@ -1,10 +1,12 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, filters, mixins
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework import filters, mixins, viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from posts.models import Post, Group, Comment, Follow
-from .serializers import PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
+from posts.models import Comment, Group, Post
+
 from .permissions import IsAuthorOrReadOnly
+from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
+                          PostSerializer)
 from .throttling import EarlyMorningThrottle
 
 

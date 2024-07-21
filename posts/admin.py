@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Comment, Follow, Group, Post
 
-
 admin.site.site_title = 'Admin panel JornalY API'
 admin.site.site_header = 'Admin panel JornalY API'
 
