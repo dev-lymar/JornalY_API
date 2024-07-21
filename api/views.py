@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
-from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import viewsets, filters, mixins
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
-from posts.models import Post, Group, Comment
-from .serializers import PostSerializer, GroupSerializer, CommentSerializer
+from posts.models import Post, Group, Comment, Follow
+from .serializers import PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
 from .permissions import IsAuthorOrReadOnly
 from .throttling import EarlyMorningThrottle
 
@@ -63,3 +62,25 @@ class CommentViewSet(viewsets.ModelViewSet):
             author=self.request.user,
             post=self.get_post(),
         )
+
+
+class FollowViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    ViewSet for Follow model objects.
+    """
+    serializer_class = FollowSerializer
+    # permission_classes = IsAuthenticated
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('author__username', )
+
+    def get_queryset(self):
+        """
+        Returns a queryset with subscriptions for the current user.
+        """
+        return self.request.user.follower.all()
+
+    def perform_create(self, serializer):
+        """
+        Creates a subscription where the current user is the subscriber.
+        """
+        serializer.save(user=self.request.user)

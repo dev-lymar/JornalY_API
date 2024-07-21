@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from posts.models import Post, Group, Tag, TagPost, Comment
+from posts.models import Post, Group, Tag, TagPost, Comment, Follow, User
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -66,3 +66,36 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id', 'text', 'author', 'post', 'created')
         read_only_fields = ('post',)
+
+
+class FollowSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Follow model.
+    """
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+    author = serializers.SlugRelatedField(
+        slug_field='username',
+        queryset=User.objects.all()
+    )
+
+    class Meta:
+        model = Follow
+        fields = ('id', 'user', 'author')
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=Follow.objects.all(),
+                fields=('user', 'author'),
+                message='You have already subscribed to this author',
+            )
+        ]
+
+    def validate(self, attrs):
+        if self.context['request'].user == attrs['author']:
+            raise serializers.ValidationError(
+                "You're trying to subscribe to yourself"
+            )
+        return attrs
