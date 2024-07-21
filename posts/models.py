@@ -34,7 +34,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField(verbose_name='Date of publication', auto_now_add=True, db_index=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_posts', verbose_name='Author')
     group = models.ForeignKey(
-        Group, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Group'
+        Group, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='Group', related_name='posts'
     )
     image = models.ImageField(verbose_name='Image', upload_to='posts/%Y/%m/%d', blank=True)
     tag = models.ManyToManyField(Tag, through='TagPost')
