@@ -49,11 +49,15 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'djoser',
+    'django_filters',
+    'corsheaders',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -151,6 +155,18 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+        ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '100/min',
+        'anon': '10/min',
+        },
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # SIMPLE_JWT
@@ -158,4 +174,18 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+# CORS
+
+CORS_ORIGIN_ALLOW_ALL = bool(os.getenv('CORS_ORIGIN_ALLOW_ALL'))
+CORS_URLS_REGEX = os.getenv("CORS_URLS_REGEX")
+
+# Spectacular
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'JornalY_API',
+    'DESCRIPTION': 'a little better than Twitter...',
+    'VERSION': '0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
