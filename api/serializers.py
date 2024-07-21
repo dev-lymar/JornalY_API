@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from posts.models import Post, Group, Tag, TagPost
+from posts.models import Post, Group, Tag, TagPost, Comment
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -45,3 +45,24 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_character_quantity(self, obj):
         return len(obj.text)
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Group model.
+    """
+    class Meta:
+        model = Group
+        fields = ('id', 'title', 'slug', 'description')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Comment model.
+    """
+    author = serializers.SlugRelatedField(slug_field='username', read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'text', 'author', 'post', 'created')
+        read_only_fields = ('post',)
