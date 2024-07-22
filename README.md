@@ -1,7 +1,15 @@
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=Python&logoColor=yellow)](https://www.python.org/)
-[![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-3.15.1-092E20?style=flat&logo=django&logoColor=white)](https://www.django-rest-framework.org/)
-[![Flake8](https://img.shields.io/badge/flake8-checked-blueviolet?style=flat)](https://flake8.pycqa.org/en/latest/)
-[![isort](https://img.shields.io/badge/isort-checked-violet?style=flat)](https://pycqa.github.io/isort/)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&labelColor=333333&logo=Python&logoColor=yellow)](https://www.python.org/)
+[![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-3.15.2-092E20?style=flat&labelColor=333333&logo=django&logoColor=white)](https://www.django-rest-framework.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.3-336791?style=flat&labelColor=333333&logo=PostgreSQL&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker--2496ED?style=flat&labelColor=333333&logo=Docker&logoColor=white)](https://www.docker.com/)
+[![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&labelColor=333333&logo=Docker&logoColor=white)
+[![Nginx](https://img.shields.io/badge/Nginx-1.26.1-269539?style=flat&labelColor=333333&logo=Nginx&logoColor=white)](https://www.nginx.com/)
+[![Psycopg2-binary](https://img.shields.io/badge/Psycopg2--binary-2.9.9-4169E1?style=flat&labelColor=333333)](https://pypi.org/project/psycopg2-binary/)
+[![Gunicorn](https://img.shields.io/badge/Gunicorn-22.0.0-FFD700?style=flat&labelColor=333333&logo=Gunicorn&logoColor=white)](https://gunicorn.org/)
+[![djoser](https://img.shields.io/badge/djoser-2.2.3-blue?style=flat&labelColor=333333&logo=django&logoColor=white&color=blue)](https://djoser.readthedocs.io/en/latest/getting_started.html)
+
+[![Flake8](https://img.shields.io/badge/flake8-checked-blueviolet?style=flat&labelColor=333333)](https://flake8.pycqa.org/en/latest/)
+[![isort](https://img.shields.io/badge/isort-checked-violet?style=flat&labelColor=333333)](https://pycqa.github.io/isort/)
 
 # JornalY_API
 
@@ -43,29 +51,27 @@ cd JornalY_API
 ```sh
 replace env.example with your data
 ```
-3. Set Up a Virtual Environment on your machine
+3. Install [`Docker`](https://www.docker.com/)
+   and [`Docker Compose`](https://docs.docker.com/compose/) for your operating system.
 
 
-4. Install the required dependencies:
+4. Start the project from root directory:
  ```sh
-pip install -r requirements.txt
+docker-compose up -d --build
 ```
-5. Run migrations:
+5. Execute the commands one at a time:
 ```sh
-python manage.py migrate
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py createsuperuser
+docker-compose exec web python manage.py collectstatic --no-input
 ```
-6. Create a superuser:
-```sh
-python manage.py createsuperuser
-```
-7. Run the development server:
-```sh
-python manage.py runserver
-```
+
+
+#### Open your web browser and navigate to http://localhost:80 to access the application.
 
 ## Usage
 
-Once the development server is running, you can access the API at http://127.0.0.1:8000/.
+Once the development server is running, you can access the API at http://127.0.0.1:80/.
 You can use tools like curl, Postman, or any REST client to interact with the API endpoints.
 
 For example, to view the list of posts, you can send a GET request to /api/v1/posts/, and you will receive a list of posts.
