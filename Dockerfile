@@ -6,6 +6,6 @@ COPY requirements.txt /app
 
 RUN pip3 install -r /app/requirements.txt --no-cache-dir
 
-COPY JornalY_API/ /app
+COPY . .
 
 CMD ["gunicorn", "jornaly_api.wsgi:application", "--bind", "0:8000"]
