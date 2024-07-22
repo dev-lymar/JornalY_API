@@ -2,7 +2,7 @@
 [![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-3.15.2-092E20?style=flat&labelColor=333333&logo=django&logoColor=white)](https://www.django-rest-framework.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.3-336791?style=flat&labelColor=333333&logo=PostgreSQL&logoColor=white)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker--2496ED?style=flat&labelColor=333333&logo=Docker&logoColor=white)](https://www.docker.com/)
-[![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&labelColor=333333&logo=Docker&logoColor=white)
+[![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat&labelColor=333333&logo=Docker&logoColor=white)](https://www.docker.com/)
 [![Nginx](https://img.shields.io/badge/Nginx-1.26.1-269539?style=flat&labelColor=333333&logo=Nginx&logoColor=white)](https://www.nginx.com/)
 [![Psycopg2-binary](https://img.shields.io/badge/Psycopg2--binary-2.9.9-4169E1?style=flat&labelColor=333333)](https://pypi.org/project/psycopg2-binary/)
 [![Gunicorn](https://img.shields.io/badge/Gunicorn-22.0.0-FFD700?style=flat&labelColor=333333&logo=Gunicorn&logoColor=white)](https://gunicorn.org/)
