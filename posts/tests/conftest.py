@@ -1,7 +1,7 @@
 import pytest
-
 from django.contrib.auth import get_user_model
-from posts.models import Group, Tag, Post, Comment, Follow
+
+from posts.models import Comment, Follow, Group, Post, Tag
 
 User = get_user_model()
 
